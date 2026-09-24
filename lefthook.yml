@@ -1,0 +1,15 @@
+# Git hooks managed by lefthook: https://lefthook.dev
+# Setup once per clone: brew install lefthook && lefthook install
+
+pre-commit:
+  jobs:
+    - name: format
+      glob: "*.java"
+      # spotlessFiles expects regexes matched against absolute paths
+      run: mvn -q spotless:apply -DspotlessFiles="$(printf '.*/%s,' {staged_files})"
+      stage_fixed: true
+
+pre-push:
+  jobs:
+    - name: verify
+      run: mvn -q verify

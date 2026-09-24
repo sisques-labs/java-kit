@@ -1,7 +1,6 @@
 package com.sisqueslabs.kit.domain.valueobject.email;
 
 import com.sisqueslabs.kit.domain.valueobject.ValueObject;
-
 import java.util.Locale;
 import java.util.regex.Pattern;
 
@@ -11,8 +10,8 @@ public record Email(String value) implements ValueObject<String> {
     private static final int MAX_LOCAL_PART_LENGTH = 64;
 
     // RFC 5322 compliant email regex
-    private static final Pattern PATTERN = Pattern.compile(
-            "^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?"
+    private static final Pattern PATTERN =
+            Pattern.compile("^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?"
                     + "(?:\\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$");
 
     public Email {
@@ -29,11 +28,11 @@ public record Email(String value) implements ValueObject<String> {
     }
 
     private static String normalize(String value) {
-        return value == null ? "" :  value.trim().toLowerCase(Locale.ROOT);
+        return value == null ? "" : value.trim().toLowerCase(Locale.ROOT);
     }
 
     private static void validate(String value) {
-        if  (value.isEmpty()) {
+        if (value.isEmpty()) {
             throw new InvalidEmailException("Email cannot be empty");
         }
 
